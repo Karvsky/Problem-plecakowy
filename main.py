@@ -49,6 +49,8 @@ def generate_data_menu():
         print("Invalid choice.")
 
 def solve_problem_menu():
+    os.system('cls' if os.name=='nt' else 'clear')
+
     data_files = glob.glob('data/*.txt')
     if not data_files:
         print("No data files found. Please generate data first.")
@@ -60,6 +62,8 @@ def solve_problem_menu():
     
     try:
         choice = int(input(f"Select file (1-{len(data_files)}): ")) - 1
+        os.system('cls' if os.name=='nt' else 'clear')
+
         if 0 <= choice < len(data_files):
             filename = data_files[choice]
             capacity, items = load_data(filename)
@@ -84,6 +88,7 @@ def solve_problem_menu():
         print("Invalid input.")
 
 def list_data_files():
+    os.system('cls' if os.name=='nt' else 'clear')
     data_files = glob.glob('data/*.txt')
     if not data_files:
         print("No data files found.")
@@ -98,6 +103,7 @@ def list_data_files():
             print(f"{filename}: (corrupted or invalid format)")
 
 def run_performance_tests():
+    os.system('cls' if os.name=='nt' else 'clear')
     if not os.path.exists('data'):
         print("No test data found. Please generate data first.")
         return
