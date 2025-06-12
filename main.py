@@ -115,9 +115,19 @@ def run_performance_tests():
     if not os.path.exists('data'):
         print("No test data found. Please generate data first.")
         return
-    
+    # prompt user for brute force timing
+    while True:
+        choice = input("Measure brute force time? (y/n): ").strip().lower()
+        if choice in ('y', 'n'):
+            break
+        print("Invalid choice. Please enter 'y' or 'n'.")
+    measure_bf = (choice == 'y')
+    if measure_bf:
+        print("Including brute force measurement...")
+    else:
+        print("Skipping brute force measurement...")
     print("Running performance tests...")
-    results = test_algorithm_performance()
+    results = test_algorithm_performance(measure_bf)
     display_results_table(results)
     save_results_to_file(results)
     print("\nResults saved to performance_results.txt")
