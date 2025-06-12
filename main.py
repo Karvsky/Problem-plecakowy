@@ -18,35 +18,41 @@ def display_menu():
     print("-"*50)
 
 def generate_data_menu():
-    os.system('cls' if os.name=='nt' else 'clear')  
-    print("\nData Generation Options:")
-    print("1. Generate single dataset")
-    print("2. Generate multiple test datasets")
-    
-    choice = input("Enter choice (1-2): ").strip()
-    os.system('cls' if os.name=='nt' else 'clear')  
+    os.system('cls' if os.name=='nt' else 'clear')
+    while True:
+        print("\nData Generation Options:")
+        print("1. Generate single dataset")
+        print("2. Generate multiple test datasets")
+        
+        choice = input("Enter choice (1-2): ").strip()
+        os.system('cls' if os.name=='nt' else 'clear')
+        
+        if choice == '1':
+            while True: 
+                try:
+                    n = int(input("Enter number of items: "))
+                    C = int(input("Enter knapsack capacity: "))
+                    filename = input("Enter filename (e.g., custom_test.txt): ")
 
-    if choice == '1':
-        try:
-            n = int(input("Enter number of items: "))
-            C = int(input("Enter knapsack capacity: "))
-            filename = input("Enter filename (e.g., custom_test.txt): ")
-            
-            if not os.path.exists('data'):
-                os.makedirs('data')
-            
-            generate_test_data(n, C, f'data/{filename}')
-            os.system('cls' if os.name=='nt' else 'clear')  
-            print(f"Data generated successfully: data/{filename}")
-        except ValueError:
-            print("Invalid input. Please enter valid numbers.")
-    
-    elif choice == '2':
-        generate_multiple_datasets()
-        print("Multiple test datasets generated successfully!")
-    
-    else:
-        print("Invalid choice.")
+                    if not os.path.exists('data'):
+                        os.makedirs('data')
+
+                    generate_test_data(n, C, f'data/{filename}')
+                    os.system('cls' if os.name=='nt' else 'clear')
+                    print(f"Data generated successfully: data/{filename}")
+                    break
+                except ValueError:
+                    print("Invalid input. Please enter valid numbers.")
+                    continue
+            break
+
+        elif choice == '2':
+            generate_multiple_datasets()
+            print("Multiple test datasets generated successfully!")
+            break
+        
+        else:
+            print("Invalid choice. Please enter 1 or 2.")
 
 def solve_problem_menu():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -59,33 +65,35 @@ def solve_problem_menu():
     print("\nAvailable data files:")
     for i, filename in enumerate(data_files, 1):
         print(f"{i}. {filename}")
-    
-    try:
-        choice = int(input(f"Select file (1-{len(data_files)}): ")) - 1
-        os.system('cls' if os.name=='nt' else 'clear')
+    while True:
+        try:
+            choice = int(input(f"Select file (1-{len(data_files)}): ")) - 1
+            
+            if 0 <= choice < len(data_files):
+                os.system('cls' if os.name=='nt' else 'clear')
+                filename = data_files[choice]
+                capacity, items = load_data(filename)
 
-        if 0 <= choice < len(data_files):
-            filename = data_files[choice]
-            capacity, items = load_data(filename)
-            
-            print(f"\nLoaded: {filename}")
-            print(f"Capacity: {capacity}")
-            print(f"Number of items: {len(items)}")
-            
-            print("\nSolving with Dynamic Programming...")
-            dp_value, dp_items = knapsack_dp(capacity, items)
-            print_solution("Dynamic Programming", dp_value, dp_items, items)
-            
-            if len(items) <= 20:
-                print("\nSolving with Brute Force...")
-                bf_value, bf_items = knapsack_brute_force(capacity, items)
-                print_solution("Brute Force", bf_value, bf_items, items)
+                print(f"\nLoaded: {filename}")
+                print(f"Capacity: {capacity}")
+                print(f"Number of items: {len(items)}")
+
+                print("\nSolving with Dynamic Programming...")
+                dp_value, dp_items = knapsack_dp(capacity, items)
+                print_solution("Dynamic Programming", dp_value, dp_items, items)
+
+                if len(items) <= 20:
+                    print("\nSolving with Brute Force...")
+                    bf_value, bf_items = knapsack_brute_force(capacity, items)
+                    print_solution("Brute Force", bf_value, bf_items, items)
+                else:
+                    print("\nSkipping Brute Force (too many items - would take too long)")
+                break
             else:
-                print("\nSkipping Brute Force (too many items - would take too long)")
-        else:
-            print("Invalid selection.")
-    except (ValueError, IndexError):
-        print("Invalid input.")
+
+                print("Invalid selection.")
+        except (ValueError, IndexError):
+            print("Invalid input.")
 
 def list_data_files():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -136,6 +144,7 @@ def main():
             break
         
         else:
+            os.system('cls' if os.name=='nt' else 'clear')
             print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
