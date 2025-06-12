@@ -4,6 +4,8 @@ from data_generator import generate_test_data, generate_multiple_datasets
 from knapsack_algorithms import knapsack_dp, knapsack_brute_force, load_data, print_solution
 from performance_test import test_algorithm_performance, save_results_to_file, display_results_table
 
+os.system('cls' if os.name=='nt' else 'clear')
+
 def display_menu():
     print("\n" + "="*50)
     print("KNAPSACK PROBLEM SOLVER")
@@ -16,12 +18,14 @@ def display_menu():
     print("-"*50)
 
 def generate_data_menu():
+    os.system('cls' if os.name=='nt' else 'clear')  
     print("\nData Generation Options:")
     print("1. Generate single dataset")
     print("2. Generate multiple test datasets")
     
     choice = input("Enter choice (1-2): ").strip()
-    
+    os.system('cls' if os.name=='nt' else 'clear')  
+
     if choice == '1':
         try:
             n = int(input("Enter number of items: "))
@@ -32,6 +36,7 @@ def generate_data_menu():
                 os.makedirs('data')
             
             generate_test_data(n, C, f'data/{filename}')
+            os.system('cls' if os.name=='nt' else 'clear')  
             print(f"Data generated successfully: data/{filename}")
         except ValueError:
             print("Invalid input. Please enter valid numbers.")
