@@ -31,7 +31,13 @@ def generate_data_menu():
             while True: 
                 try:
                     n = int(input("Enter number of items: "))
+                    if n <= 0:
+                        print("Number of items must be greater than 0.")
+                        continue
                     C = int(input("Enter knapsack capacity: "))
+                    if C <= 0:
+                        print("Capacity must be greater than 0.")
+                        continue
                     filename = input("Enter filename (e.g., custom_test.txt): ")
 
                     if not os.path.exists('data'):
@@ -115,7 +121,6 @@ def run_performance_tests():
     if not os.path.exists('data'):
         print("No test data found. Please generate data first.")
         return
-    # prompt user for brute force timing
     while True:
         choice = input("Measure brute force time? (y/n): ").strip().lower()
         if choice in ('y', 'n'):
