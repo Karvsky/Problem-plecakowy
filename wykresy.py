@@ -19,7 +19,6 @@ def parse_performance_file(path):
             cap_section = True
             size_section = False
             continue
-        # skip separators and headers
         if re.match(r'^[-\s]*$', line) or line.startswith(('n','C','//')):
             continue
 
@@ -38,8 +37,6 @@ def parse_performance_file(path):
     return (n_vals, dp_n, bf_n), (C_vals, dp_C, bf_C)
 
 def plot_results(size_data, cap_data):
-    # Rozdzielone wykresy: zapis do plików
-    # Wykres czasu vs n
     n_vals, dp_n, bf_n = size_data
     fig1, ax1 = plt.subplots(figsize=(6,5))
     ax1.plot(n_vals, dp_n, marker='o', label='DP')
@@ -53,7 +50,6 @@ def plot_results(size_data, cap_data):
     fig1.savefig('performance_vs_n.png')
     plt.close(fig1)
 
-    # Wykres czasu vs C
     C_vals, dp_C, bf_C = cap_data
     fig2, ax2 = plt.subplots(figsize=(6,5))
     ax2.plot(C_vals, dp_C, marker='o', label='DP')
