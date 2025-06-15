@@ -14,10 +14,6 @@ def test_algorithm_performance(measure_bf=True):
         'size_tests': {'n': [], 'dp_time': [], 'bf_time': []},
         'capacity_tests': {'c': [], 'dp_time': [], 'bf_time': []}
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 0ff143e152c16f358cb2c70d83561a85616187b0
     if not measure_bf:
         print("Brute force measurements disabled.")
     
