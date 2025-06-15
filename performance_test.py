@@ -14,7 +14,6 @@ def test_algorithm_performance(measure_bf=True):
         'size_tests': {'n': [], 'dp_time': [], 'bf_time': []},
         'capacity_tests': {'c': [], 'dp_time': [], 'bf_time': []}
     }
-    # notify if BF measurement disabled
     if not measure_bf:
         print("Brute force measurements disabled.")
     
@@ -39,7 +38,7 @@ def test_algorithm_performance(measure_bf=True):
         else:
             print(f"n={n}: DP={dp_time:.6f}s")
     
-    print("\nTesting performance with varying capacity...")
+    print("\nTesting performance with varying capacity (C from 10 to 10000)...")
     capacity_files = sorted(glob.glob('data/capacity_test_*.txt'))
     for filename in capacity_files:
         capacity, items = load_data(filename)
@@ -59,7 +58,6 @@ def test_algorithm_performance(measure_bf=True):
         else:
             print(f"C={capacity}: DP={dp_time:.6f}s")
     
-    # record flag
     results['measure_bf'] = measure_bf
     return results
 

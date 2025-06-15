@@ -24,11 +24,11 @@ def generate_multiple_datasets():
     for i, (n, C) in enumerate(base_configs):
         generate_test_data(n, C, f'data/test_{i+1}.txt')
     
-    capacity_tests = [(15, c) for c in range(50, 201, 25)]
+    capacity_tests = [(15, c) for c in [100, 500, 1000, 2500, 5000, 7500, 10000, 15000, 20000]]
     for i, (n, C) in enumerate(capacity_tests):
         generate_test_data(n, C, f'data/capacity_test_{i+1}.txt')
     
-    size_tests = [(n, 100) for n in range(10, 36, 5)]
+    size_tests = [(n, 100) for n in range(5, 24, 3)]
     for i, (n, C) in enumerate(size_tests):
         generate_test_data(n, C, f'data/size_test_{i+1}.txt')
 
